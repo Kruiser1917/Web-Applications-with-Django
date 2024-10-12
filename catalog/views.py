@@ -33,5 +33,5 @@ class ContactView(TemplateView):
 
 class ProductDetailView(DetailView):
     model = Product
-    template_name = 'catalog/product_detail.html'  # Шаблон для детальной информации о продукте
+    template_name = 'catalog/product_detail.html'  # Шаблон для детальной информации о продукте23
     context_object_name = 'product'
