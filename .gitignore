@@ -17,3 +17,7 @@ static/
 
 # PostgreSQL backup files
 *.sql
+
+*.sqlite3
+
+*/migrations/
