@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Продукты</h1>
+    <a href="{% url 'catalog:product_create' %}">Создать новый продукт</a>
+    <ul>
+        {% for product in products %}
+            <li>
+                <a href="{% url 'catalog:product_update' product.pk %}">{{ product.name }}</a>
+                - {{ product.price }} руб.
+                <form action="{% url 'catalog:product_delete' product.pk %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <input type="submit" value="Удалить">
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

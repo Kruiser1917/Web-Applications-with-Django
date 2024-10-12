@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}  <!-- Загрузите статические теги -->
+
+{% block title %}
+Главная - Мой магазин
+{% endblock %}
+
+{% block content %}
+    <h1>Наши товары</h1>
+    <div class="row">
+        {% for product in products %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <a href="{% url 'catalog:product_detail' product.pk %}">  <!-- Обновляем ссылку -->
+                        <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'images/no-image.png' %}{% endif %}" class="card-img-top" alt="{{ product.name }}">
+                    </a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ product.name }}</h5>
+                        <p class="card-text">{{ product.description|slice:":100" }}...</p>  <!-- Обрезаем описание до 100 символов -->
+                        <a href="{% url 'catalog:product_detail' product.pk %}" class="btn btn-primary">Подробнее</a>  <!-- Обновляем ссылку -->
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

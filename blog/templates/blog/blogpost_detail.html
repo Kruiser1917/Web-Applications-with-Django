@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ blog_post.title }}{% endblock %}
+
+{% block content %}
+    <h1>{{ blog_post.title }}</h1>
+    <img src="{{ blog_post.preview_image.url }}" alt="{{ blog_post.title }}">
+    <p>{{ blog_post.content }}</p>
+    <p>Количество просмотров: {{ blog_post.views_count }}</p>
+    <a href="{% url 'blog:blog_update' blog_post.pk %}">Редактировать</a>
+    <a href="{% url 'blog:blog_delete' blog_post.pk %}">Удалить</a>
+{% endblock %}

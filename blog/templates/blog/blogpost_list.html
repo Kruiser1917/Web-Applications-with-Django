@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Список статей{% endblock %}
+
+{% block content %}
+    <h1>Список блоговых записей</h1>
+    <ul>
+        {% for post in blog_posts %}
+            <li>
+                <a href="{% url 'blog:blog_detail' post.pk %}">{{ post.title }}</a>
+                ({{ post.views_count }} просмотров)
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'blog:blog_create' %}">Добавить новую статью</a>
+{% endblock %}

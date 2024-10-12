@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %} <!-- Эта строка добавляет теги static -->
+
+{% block title %}
+    {{ blog_post.title }}
+{% endblock %}
+
+{% block content %}
+    <h1>{{ blog_post.title }}</h1>
+
+    <p><strong>Дата публикации:</strong> {{ blog_post.created_at }}</p>
+    <p><strong>Просмотры:</strong> {{ blog_post.views }}</p>
+
+    {% if blog_post.preview_image %}
+        <img src="{{ blog_post.preview_image.url }}" alt="{{ blog_post.title }}" style="max-width: 100%;">
+    {% else %}
+        <img src="{% static 'images/no-image.png' %}" alt="No Image Available" style="max-width: 100%;">
+    {% endif %}
+
+    <div class="content">
+        <p>{{ blog_post.content }}</p>
+    </div>
+
+    <a href="{% url 'blog:blog_list' %}" class="btn btn-secondary">Назад к блогу</a>
+{% endblock %}
