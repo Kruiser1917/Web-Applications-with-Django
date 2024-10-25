@@ -11,7 +11,7 @@ class ProductListView(ListView):
     context_object_name = 'products'
 
 
-class ProductCreateView(LoginRequiredMixin, CreateView):
+class ProductCreateView(LoginRequiredMixin, CreateView): #
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_form.html'
