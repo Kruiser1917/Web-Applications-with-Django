@@ -5,6 +5,23 @@ from django.contrib.auth.decorators import permission_required
 from django.shortcuts import get_object_or_404, redirect
 from .models import Product
 from .forms import ProductForm
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+from django.shortcuts import render
+from .services import get_products_by_category
+
+def products_by_category(request, category_id):
+    products = get_products_by_category(category_id)
+    return render(request, 'catalog/products_by_category.html', {'products': products})
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'catalog/product_detail.html'
+    context_object_name = 'product'
+
+    # Кеширование на 15 минут (900 секунд)
+    @method_decorator(cache_page(60 * 15))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
 class ProductListView(ListView):
     model = Product
