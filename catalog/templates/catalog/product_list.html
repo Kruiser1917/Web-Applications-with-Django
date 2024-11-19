@@ -6,12 +6,14 @@
     <ul>
         {% for product in products %}
             <li>
-                <a href="{% url 'catalog:product_update' product.pk %}">{{ product.name }}</a>
-                - {{ product.price }} руб.
-                <form action="{% url 'catalog:product_delete' product.pk %}" method="post" style="display:inline;">
-                    {% csrf_token %}
-                    <input type="submit" value="Удалить">
-                </form>
+                {{ product.name }} - {{ product.price }} руб.
+                {% if product.owner == request.user %}
+                    <a href="{% url 'catalog:product_update' product.pk %}">Редактировать</a>
+                    <form action="{% url 'catalog:product_delete' product.pk %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <input type="submit" value="Удалить">
+                    </form>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>

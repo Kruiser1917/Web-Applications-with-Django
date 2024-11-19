@@ -1,6 +1,8 @@
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import BlogPost
+from catalog.models import Product
 
 # Список всех опубликованных статей
 class BlogPostListView(ListView):
@@ -48,3 +50,13 @@ class BlogPostDeleteView(DeleteView):
     model = BlogPost
     template_name = 'blog/blog_confirm_delete.html'
     success_url = reverse_lazy('blog:blog_list')
+
+class ProductListView(ListView):
+    model = Product
+    template_name = 'catalog/product_list.html'
+    context_object_name = 'products'
+
+class ProductCreateView(LoginRequiredMixin, CreateView):
+    model = Product
+    fields = ['name', 'price', 'category']
+    template_name = 'catalog/product_form.html'
